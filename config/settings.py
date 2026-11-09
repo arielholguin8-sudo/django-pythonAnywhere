@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,13 +20,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^-ejwznpu(@zplc5kuee^p9#rty5fg@a3%@*6&5c%=5^te$0$*'
-
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    Path('/home/taller81/.django_secret_key').read_text().strip()
+)
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['taller81.pythonanywhere.com']
 
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Application definition
 
@@ -115,13 +119,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
-
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
 MAILERS = {
     'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+        'BACKEND': 'django.core.mail.backends.smtp.EmailBackend',
+        'OPTIONS': {
+            'host': 'localhost',
+        },
     },
 }

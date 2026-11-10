@@ -11,7 +11,7 @@ def inicio(request):
             </head>
             <body style="text-align:center; font-family:Arial; margin-top:100px;">
                 <h1>Bienvenido a mi proyecto Django</h1>
-                <p>Aplicación desplegada correctamente en PythonAnywhere.</p>
+                <p>Aplicación desplegada correctamente en Render.</p>
                 <p>Proyecto desarrollado con Django.</p>
                 <a href="/admin/">Ir al panel de administración</a>
             </body>
